@@ -48,11 +48,11 @@ startBtn.addEventListener('click', () => {
   input.disabled = true;
 
   timerId = setInterval(() => {
-    const timeNow = new Date();
-    const diff = userSelectedDate - timeNow;
+    const now = Date.now();
+    const diff = userSelectedDate.getTime() - now;
 
     if (diff <= 0) {
-      clearInterval(diff);
+      clearInterval(timerId);
       updateTime(0);
       input.disabled = false;
       return;
@@ -65,7 +65,7 @@ startBtn.addEventListener('click', () => {
 function updateTime(ms) {
   const { days, hours, minutes, seconds } = convertMs(ms);
 
-  daysEl.textContent = days;
+  daysEl.textContent = addZero(days);
   hoursEl.textContent = addZero(hours);
   minutesEl.textContent = addZero(minutes);
   secondsEl.textContent = addZero(seconds);
